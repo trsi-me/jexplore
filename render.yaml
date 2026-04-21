@@ -1,19 +1,17 @@
-# نشر واجهة Flutter Web كموقع ثابت على Render (بدون Procfile)
-# أنشئ Static Site من لوحة Render واربط نفس المستودع، أو استخدم Blueprint من هذا الملف.
-# https://render.com/docs/static-sites
+# نشر Flutter Web على Render كـ Static Site — نسخة جاهزة من جهازك (بدون بناء على السيرفر)
 #
-# ملاحظة: البناء يثبّت Flutter من فرع stable عبر Git (يحتاج صلاحية الشبكة في Render).
+# قبل كل push للنشر:
+#   flutter build web --release
+# ثم ادفع المستودع مع مجلد build/web (يجب أن يكون مضافاً لـ Git وليس مستبعداً في .gitignore)
+#
+# في لوحة Render: Static Site أو Blueprint من هذا الملف.
+# https://render.com/docs/static-sites
 
 services:
   - type: web
     name: jexplore-web
     runtime: static
     rootDir: .
-    buildCommand: |
-      set -e
-      git clone https://github.com/flutter/flutter.git -b stable --depth 1 _flutter
-      export PATH="$PATH:$PWD/_flutter/bin"
-      flutter config --no-analytics
-      flutter pub get
-      flutter build web --release
+    # لا يوجد Flutter هنا — مجرد نجاح خطوة البناء ثم نشر المجلد التالي
+    buildCommand: echo "OK — serving pre-built Flutter web from build/web"
     staticPublishPath: build/web
